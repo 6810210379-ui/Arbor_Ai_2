@@ -828,8 +828,8 @@ body {
 .auth-overlay {
   position: fixed; inset: 0; z-index: 3000;
   background: linear-gradient(135deg, #1E0F08 0%, var(--bark-dark) 45%, var(--forest) 100%);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+  padding: 20px; flex-wrap: wrap; overflow-y: auto;
 }
 .auth-overlay.hide { display: none; }
 .auth-box {
@@ -843,6 +843,33 @@ body {
 .auth-logo .s { font-size: 11.5px; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
 .auth-tabs { display: flex; gap: 6px; margin-bottom: 20px; background: var(--cream); border-radius: 10px; padding: 4px; }
 .auth-tab { flex: 1; text-align: center; padding: 9px; border-radius: 8px; font-size: 13.5px; font-weight: 700; cursor: pointer; color: var(--text-muted); transition: all .15s; }
+
+/* ═══════════════ PUBLIC DASHBOARD (no-login, Citizen Science) ═══════════════ */
+.public-dash-panel {
+  background: rgba(255,255,255,0.97); border-radius: 22px; max-width: 480px; width: 100%;
+  padding: 28px 26px; box-shadow: var(--shadow-lg); max-height: 94vh; overflow-y: auto;
+}
+.pd-header { text-align: center; margin-bottom: 18px; }
+.pd-title { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--bark-dark); }
+.pd-title span { color: var(--forest); font-style: italic; }
+.pd-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+.pd-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+.pd-stat-card {
+  background: var(--cream); border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 12px 14px; text-align: center; position: relative; overflow: hidden;
+}
+.pd-stat-card .pdv { font-size: 24px; font-weight: 800; color: var(--bark-dark); }
+.pd-stat-card .pdl { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+.pd-grow-tree {
+  background: linear-gradient(180deg, #d8ecc4, #c2e0a4); border-radius: 16px; padding: 18px;
+  text-align: center; margin-bottom: 16px; border: 2px dashed #9bc97a;
+}
+.pd-tree-emoji { font-size: 46px; transition: transform .4s; animation: pd-sway 3s ease-in-out infinite; }
+@keyframes pd-sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.pd-tree-caption { font-size: 11px; color: #4a6b35; margin-top: 6px; font-weight: 600; }
+.pd-species { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 14px; }
+.pd-species-chip { background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 4px 11px; font-size: 11px; color: var(--bark); }
+.pd-cta { text-align: center; font-size: 12px; color: var(--text-muted); font-style: italic; }
 .auth-tab.active { background: white; color: var(--bark-dark); box-shadow: var(--shadow); }
 
 .form-group { margin-bottom: 12px; }
@@ -951,8 +978,18 @@ body {
 }
 .admin-tab:hover { border-color: var(--bark); }
 .admin-tab.active { background: var(--bark-dark); color: white; border-color: var(--bark-dark); }
+.tab-badge { display:inline-block; background:var(--danger); color:white; font-size:10px; font-weight:800; padding:1px 6px; border-radius:10px; margin-left:6px; }
 .admin-content { display: none; }
 .admin-content.active { display: block; }
+.review-item {
+  display: flex; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--border); align-items: flex-start;
+}
+.review-item:last-child { border-bottom: none; }
+.review-thumb { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: var(--cream); display:flex; align-items:center; justify-content:center; font-size:24px; }
+.review-body { flex: 1; }
+.review-body .rv-title { font-weight: 700; font-size: 13.5px; color: var(--bark-dark); }
+.review-body .rv-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.review-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
 .role-chip { padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
 .role-admin { background: #E8D5F5; color: #6C3483; }
 .role-staff { background: #D6EAF8; color: #1F618D; }
@@ -1036,6 +1073,113 @@ body {
 }
 .tree-del-btn:hover { background: #C0392B; }
 .tree-emoji img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ═══════════════ GACHA ═══════════════ */
+.gacha-layout { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
+.gacha-machine-card { padding: 24px; }
+.gacha-machine-bg {
+  background: radial-gradient(ellipse at center, #2D5A27 0%, #1E0F08 100%);
+  border-radius: 18px; height: 200px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; margin-bottom: 16px;
+}
+.gacha-orb {
+  font-size: 72px; transition: transform .5s cubic-bezier(.4,2,.6,1);
+  filter: drop-shadow(0 0 24px rgba(212,168,83,0.8));
+  animation: orbFloat 3s ease-in-out infinite;
+}
+@keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-10px) scale(1.04)} }
+.gacha-sparkle { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:80px; animation: sparkleIn .5s ease; }
+@keyframes sparkleIn { 0%{transform:scale(0) rotate(-20deg);opacity:0} 60%{transform:scale(1.2) rotate(5deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+.gacha-rates-row { display:flex; gap:8px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
+.gr-chip { padding:4px 12px; border-radius:14px; font-size:12px; font-weight:700; }
+.gr-chip.ssr { background:linear-gradient(90deg,#F6D365,#FDA085); color:#7a3d00; }
+.gr-chip.sr { background:linear-gradient(90deg,#a8edea,#fed6e3); color:#2C3E50; }
+.gr-chip.r { background:var(--cream); border:1px solid var(--border); color:var(--text-muted); }
+.gacha-point-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:13px; }
+.gacha-cost-label { font-size:11.5px; color:var(--text-muted); }
+.gacha-btns { display:flex; flex-direction:column; gap:8px; }
+.gacha-pull-btn { font-size:14px; font-weight:800; padding:12px; }
+.gacha-pull-10-btn { background:linear-gradient(90deg,#2D5A27,#4a8c3f); color:white; border:none; border-radius:12px; font-weight:800; font-size:14px; padding:12px; cursor:pointer; font-family:'Sarabun',sans-serif; transition:all .2s; }
+.gacha-pull-10-btn:hover { opacity:.9; transform:scale(1.02); }
+.gacha-collection-card { padding: 24px; }
+.gacha-collection-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.treemons-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:10px; }
+.treemon-card {
+  border-radius:14px; padding:14px 10px; text-align:center; border:2px solid var(--border);
+  transition:all .2s; cursor:default; position:relative;
+}
+.treemon-card.owned { border-color:var(--leaf); background:linear-gradient(135deg,#f0faed,#e8f5e2); }
+.treemon-card.not-owned { opacity:0.4; filter:grayscale(0.7); }
+.treemon-card .tc-emoji { font-size:32px; margin-bottom:4px; }
+.treemon-card .tc-name { font-size:11px; font-weight:700; color:var(--bark-dark); }
+.treemon-card .tc-rarity { font-size:9.5px; color:var(--text-muted); }
+.treemon-card .tc-new { position:absolute; top:4px; right:4px; background:var(--danger); color:white; font-size:8px; font-weight:800; padding:1px 5px; border-radius:8px; }
+
+/* Gacha result popup */
+.gacha-result-overlay {
+  position:fixed; inset:0; z-index:5000; background:rgba(0,0,0,0.75);
+  display:flex; align-items:center; justify-content:center;
+}
+.gacha-result-box {
+  background:white; border-radius:22px; padding:30px; max-width:520px; width:94%;
+  text-align:center; position:relative; box-shadow: var(--shadow-lg);
+  max-height:90vh; overflow-y:auto;
+}
+.gr-close { position:absolute; top:14px; right:16px; font-size:16px; cursor:pointer; color:var(--text-muted); }
+.gr-title { font-family:'Playfair Display',serif; font-size:22px; color:var(--bark-dark); margin-bottom:18px; }
+.gr-cards { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:18px; }
+.gr-card {
+  width:88px; padding:14px 8px; border-radius:14px; text-align:center;
+  border:2px solid var(--border); animation:cardPop .4s cubic-bezier(.4,2,.6,1) both;
+}
+.gr-card.rSSR { border-color:#F6D365; background:linear-gradient(135deg,#FFF8E1,#FFF3CD); }
+.gr-card.rSR  { border-color:#a8edea; background:linear-gradient(135deg,#E8F9F8,#D1F2EB); }
+.gr-card.rR   { border-color:var(--border); background:var(--cream); }
+@keyframes cardPop { 0%{transform:scale(0) rotate(-15deg);opacity:0} 70%{transform:scale(1.08) rotate(3deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+.gr-card .gc-emoji { font-size:28px; margin-bottom:6px; }
+.gr-card .gc-name { font-size:10px; font-weight:700; color:var(--bark-dark); }
+.gr-card .gc-rarity { font-size:9px; color:var(--text-muted); margin-top:2px; }
+
+/* ═══════════════ PET / TAMAGOTCHI ═══════════════ */
+.pet-layout { display:grid; grid-template-columns:420px 1fr; gap:20px; }
+.pet-main-card { padding:24px; }
+.pet-scene {
+  background:linear-gradient(180deg,#c8e6ff 0%,#e8f5e0 60%,#c8e09a 100%);
+  border-radius:18px; height:200px; display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden; margin-bottom:16px;
+}
+.pet-bg-tree { position:absolute; bottom:-4px; right:12px; font-size:72px; opacity:0.18; }
+.pet-emoji { font-size:72px; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.12)); animation:petBounce 2s ease-in-out infinite; z-index:1; }
+@keyframes petBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.pet-mood { position:absolute; top:12px; left:0; right:0; text-align:center; font-size:13px; font-weight:700; color:var(--bark-dark); background:rgba(255,255,255,0.7); padding:3px 10px; }
+.pet-name-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.pet-name { font-size:17px; font-weight:800; color:var(--bark-dark); }
+.ps-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12.5px; min-width:0; }
+.ps-bar-row > span:first-child { width:70px; flex-shrink:0; }
+.ps-bar-bg { flex:1; background:var(--cream); border-radius:8px; height:10px; overflow:hidden; border:1px solid var(--border); }
+.ps-bar-fill { height:100%; border-radius:8px; transition:width .5s; }
+.ps-bar-row > span:last-child { width:40px; text-align:right; flex-shrink:0; font-size:11.5px; color:var(--text-muted); }
+.pet-level-row { display:flex; align-items:center; gap:10px; margin:14px 0; font-size:12px; }
+.pet-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.pet-evo-card { padding:20px; }
+.pet-evo-stages { display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:8px 0; }
+.pet-evo-stage { text-align:center; padding:10px 12px; border-radius:12px; background:var(--cream); border:2px solid var(--border); font-size:12px; }
+.pet-evo-stage.active { border-color:var(--forest); background:#f0faed; }
+.pet-evo-stage .es-emoji { font-size:26px; margin-bottom:4px; }
+.pet-evo-arrow { font-size:20px; color:var(--text-muted); }
+.pet-items-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.pet-item {
+  background:var(--cream); border:1.5px solid var(--border); border-radius:12px;
+  padding:12px; text-align:center; cursor:pointer; transition:all .15s;
+}
+.pet-item:hover { border-color:var(--forest); background:#f0faed; transform:scale(1.02); }
+.pi-icon { font-size:28px; margin-bottom:4px; }
+.pi-name { font-size:12px; font-weight:700; color:var(--bark-dark); }
+.pi-cost { font-size:11px; color:var(--text-muted); margin-top:2px; }
+
+@media (max-width:860px) {
+  .gacha-layout, .pet-layout { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
@@ -1078,6 +1222,12 @@ body {
     <span class="nav-icon">💬</span><span>ข้อความ</span>
     <span class="nav-badge" id="msgBadge" style="display:none">!</span>
   </div>
+  <div class="nav-item" onclick="go('gacha')" id="nav-gacha" style="display:none">
+    <span class="nav-icon">🎲</span><span>Gacha & Treemons</span>
+  </div>
+  <div class="nav-item" onclick="go('pet')" id="nav-pet" style="display:none">
+    <span class="nav-icon">🐾</span><span>สัตว์เลี้ยงดิจิทัล</span>
+  </div>
   <div class="nav-item" onclick="go('admin')" id="nav-admin" style="display:none">
     <span class="nav-icon">⚙️</span><span>Admin Panel</span>
     <span class="nav-badge" id="adminBadge" style="display:none">!</span>
@@ -1108,6 +1258,19 @@ body {
 
 <!-- ══════════ AUTH OVERLAY ══════════ -->
 <div class="auth-overlay" id="authOverlay">
+  <div class="public-dash-panel" id="publicDashPanel">
+    <div class="pd-header">
+      <div class="pd-title">🌳 ARBOR <span>Ai</span> — Citizen Science Dashboard</div>
+      <div class="pd-sub">ข้อมูลสาธารณะ พื้นที่นำร่อง อ.หาดใหญ่ จ.สงขลา · ไม่ต้องเข้าสู่ระบบ</div>
+    </div>
+    <div class="pd-stats" id="pdStats"></div>
+    <div class="pd-grow-tree" id="pdGrowTree">
+      <div class="pd-tree-emoji" id="pdTreeEmoji">🌱</div>
+      <div class="pd-tree-caption">ต้นไม้ดิจิทัลของชุมชนเติบโตตามจำนวนรายงานสะสม</div>
+    </div>
+    <div class="pd-species" id="pdSpecies"></div>
+    <div class="pd-cta">มีส่วนร่วมเป็นนักสำรวจ — เข้าสู่ระบบหรือสมัครสมาชิกที่แผงด้านขวา →</div>
+  </div>
   <div class="auth-box">
     <div class="auth-logo">
       <div class="t">ARBOR <span>Ai</span></div>
@@ -1472,7 +1635,7 @@ body {
         </ul>
       </div>
       <div class="ai-warning">
-        ⚠️ <strong>Responsible AI:</strong> ระบบแสดง Confidence Score ทุกครั้ง และมี Disclaimer ให้ผู้เชี่ยวชาญยืนยันก่อนตัดต้นไม้จริง ภาพที่มีแสงน้อยหรือมุมไม่ชัดอาจส่งผลต่อความแม่นยำ
+        ⚠️ <strong>AI Disclaimer:</strong> ผลการวิเคราะห์เป็นการประเมินความเสี่ยงเบื้องต้นจากภาพถ่าย ไม่สามารถใช้แทนการตรวจสอบโดยผู้เชี่ยวชาญด้านรุกขกรรมได้ และระบบมีหน้าที่รวบรวมข้อมูลติดต่อหน่วยงานเพื่ออำนวยความสะดวกแก่ประชาชน ไม่ใช่ช่องทางแจ้งเหตุอย่างเป็นทางการของรัฐ
       </div>
     </div>
   </div>
@@ -1809,6 +1972,132 @@ body {
   </div>
 </div>
 
+<!-- ██████ GACHA ██████ -->
+<div class="page" id="page-gacha">
+  <div class="page-header">
+    <div class="page-header-left">
+      <h2>🎲 Gacha & Treemons Collection</h2>
+      <p>ใช้ 🌰 Arbor Point ที่ได้จากการสำรวจต้นไม้มาสุ่มรับ Treemon — ตัวละครพิเศษที่เชื่อมโยงกับพันธุ์ไม้จริงๆ</p>
+    </div>
+  </div>
+
+  <div class="gacha-layout">
+    <!-- Left: Pull machine -->
+    <div class="gacha-machine-card card">
+      <div class="gacha-machine-bg">
+        <div class="gacha-orb" id="gachaOrb">🌰</div>
+        <div class="gacha-sparkle" id="gachaSparkle" style="display:none">✨</div>
+      </div>
+      <div class="gacha-rates-row">
+        <span class="gr-chip ssr">⭐⭐⭐ SSR <span id="dispSSR">5</span>%</span>
+        <span class="gr-chip sr">⭐⭐ SR <span id="dispSR">20</span>%</span>
+        <span class="gr-chip r">⭐ R <span id="dispR">75</span>%</span>
+      </div>
+      <div class="gacha-point-row">
+        <span>🌰 Arbor Point ของคุณ: <b id="gachaPointDisplay">0</b></span>
+        <span class="gacha-cost-label">ค่าใช้จ่าย: 50 แต้ม / ครั้ง</span>
+      </div>
+      <div class="gacha-btns">
+        <button class="btn btn-sun gacha-pull-btn" onclick="doPull(1)">🎲 สุ่ม ×1 (50 แต้ม)</button>
+        <button class="btn gacha-pull-10-btn" onclick="doPull(10)">🎰 สุ่ม ×10 (450 แต้ม)</button>
+      </div>
+      <div class="ai-warning" style="margin-top:12px;font-size:11.5px">
+        อัตราการสุ่มแสดงจริงตามที่กำหนดในระบบ — คำนวณผลบนฝั่ง Client และ seed จาก Math.random() เพื่อความโปร่งใส
+      </div>
+    </div>
+
+    <!-- Right: Collection -->
+    <div class="card gacha-collection-card">
+      <div class="gacha-collection-header">
+        <h3>📖 Treemons Collection</h3>
+        <div id="gachaCollectedCount" class="profile-chip">0 / 9 ตัว</div>
+      </div>
+      <div id="treemonsGrid" class="treemons-grid"></div>
+    </div>
+  </div>
+
+  <!-- Pull Result Popup -->
+  <div class="gacha-result-overlay" id="gachaResult" style="display:none">
+    <div class="gacha-result-box">
+      <div class="gr-close" onclick="closeGachaResult()">✕</div>
+      <div class="gr-title" id="grTitle">ผลการสุ่ม!</div>
+      <div class="gr-cards" id="grCards"></div>
+      <button class="btn btn-primary gacha-pull-btn" onclick="closeGachaResult()">รับไว้ 🎉</button>
+    </div>
+  </div>
+</div>
+
+<!-- ██████ PET (Tamagotchi) ██████ -->
+<div class="page" id="page-pet">
+  <div class="page-header">
+    <div class="page-header-left">
+      <h2>🐾 สัตว์เลี้ยงดิจิทัล — Treemon Pet</h2>
+      <p>ดูแลเลี้ยง Treemon ของคุณด้วย 🌰 Arbor Point ที่ได้จากการสำรวจต้นไม้จริงๆ</p>
+    </div>
+  </div>
+
+  <div class="pet-layout">
+    <!-- Pet Display -->
+    <div class="card pet-main-card">
+      <div class="pet-scene" id="petScene">
+        <div class="pet-bg-tree">🌳</div>
+        <div class="pet-emoji" id="petEmoji">❓</div>
+        <div class="pet-mood" id="petMood">เลือก Treemon ของคุณก่อน</div>
+      </div>
+
+      <div class="pet-name-row">
+        <span class="pet-name" id="petName">ยังไม่มี Treemon</span>
+        <span class="role-chip role-staff" id="petRarity" style="display:none"></span>
+      </div>
+
+      <div class="pet-stats" id="petStats">
+        <div class="ps-bar-row"><span>❤️ ความหิว</span><div class="ps-bar-bg"><div class="ps-bar-fill" id="barHunger" style="width:0%;background:#E74C3C"></div></div><span id="txtHunger">—</span></div>
+        <div class="ps-bar-row"><span>💧 ความสุข</span><div class="ps-bar-bg"><div class="ps-bar-fill" id="barHappy" style="width:0%;background:#3498DB"></div></div><span id="txtHappy">—</span></div>
+        <div class="ps-bar-row"><span>⚡ พลังงาน</span><div class="ps-bar-bg"><div class="ps-bar-fill" id="barEnergy" style="width:0%;background:#F39C12"></div></div><span id="txtEnergy">—</span></div>
+      </div>
+
+      <div class="pet-level-row">
+        <span id="petLevelLabel">Lv. —</span>
+        <div class="ps-bar-bg" style="flex:1"><div class="ps-bar-fill" id="barExp" style="width:0%;background:var(--forest)"></div></div>
+        <span id="petExpLabel">0 / 100 EXP</span>
+      </div>
+
+      <div class="pet-actions" id="petActions">
+        <button class="btn btn-primary btn-sm" onclick="petFeed()">🍃 ให้อาหาร (10 แต้ม)</button>
+        <button class="btn btn-secondary btn-sm" onclick="petPlay()">🎮 เล่นด้วยกัน (5 แต้ม)</button>
+        <button class="btn btn-outline btn-sm" onclick="petRest()">😴 พักผ่อน (ฟรี)</button>
+      </div>
+
+      <div class="pet-no-pet" id="petNoPet" style="display:none">
+        <div style="text-align:center;padding:20px">
+          <div style="font-size:48px;margin-bottom:10px">❓</div>
+          <div style="font-weight:700;color:var(--bark-dark)">ยังไม่มี Treemon</div>
+          <div style="font-size:12.5px;color:var(--text-muted);margin-top:4px">ไปสุ่ม Gacha เพื่อรับ Treemon คู่ใจของคุณก่อนนะ!</div>
+          <button class="btn btn-primary" style="margin-top:14px" onclick="go('gacha')">🎲 ไปสุ่ม Gacha</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Evolution status + inventory -->
+    <div>
+      <div class="card pet-evo-card" style="margin-bottom:18px">
+        <h3>🧬 วิวัฒนาการ (Evolution Path)</h3>
+        <div class="pet-evo-stages" id="petEvoStages"></div>
+      </div>
+
+      <div class="card pet-evo-card">
+        <h3>🎒 ไอเทมอาหาร (ใช้จาก Arbor Point)</h3>
+        <div class="pet-items-grid">
+          <div class="pet-item" onclick="petFeed('leaf')"><div class="pi-icon">🍃</div><div class="pi-name">ใบไม้สด</div><div class="pi-cost">10 แต้ม</div></div>
+          <div class="pet-item" onclick="petFeed('fruit')"><div class="pi-icon">🍋</div><div class="pi-name">ผลไม้พิเศษ</div><div class="pi-cost">30 แต้ม</div></div>
+          <div class="pet-item" onclick="petFeed('water')"><div class="pi-icon">💧</div><div class="pi-name">น้ำเพชร</div><div class="pi-cost">20 แต้ม</div></div>
+          <div class="pet-item" onclick="petFeed('sun')"><div class="pi-icon">☀️</div><div class="pi-name">แสงอาทิตย์</div><div class="pi-cost">50 แต้ม</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ██████ MESSAGES ██████ -->
 <div class="page" id="page-messages">
   <div class="page-header">
@@ -1848,7 +2137,7 @@ body {
 
   <div class="admin-metrics">
     <div class="metric-card c-red"><div class="m-icon">🔔</div><div class="m-val" id="admNew">0</div><div class="m-label">แจ้งเตือนวิกฤตใหม่</div></div>
-    <div class="metric-card c-warn"><div class="m-icon">⏳</div><div class="m-val" id="admPending">0</div><div class="m-label">รอดำเนินการ</div></div>
+    <div class="metric-card c-warn"><div class="m-icon">🔍</div><div class="m-val" id="admReview">0</div><div class="m-label">รอตรวจสอบ (Review Queue)</div></div>
     <div class="metric-card"><div class="m-icon">🔧</div><div class="m-val" id="admProgress">0</div><div class="m-label">กำลังดำเนินการ</div></div>
     <div class="metric-card c-safe"><div class="m-icon">✅</div><div class="m-val" id="admDone">0</div><div class="m-label">แก้ไขแล้ว</div></div>
     <div class="metric-card"><div class="m-icon">👥</div><div class="m-val" id="admUsers">0</div><div class="m-label">ผู้ใช้ทั้งหมด</div></div>
@@ -1857,9 +2146,68 @@ body {
 
   <div class="admin-tabs">
     <div class="admin-tab active" onclick="adminTab(this,'reports')">📋 รายงานต้นไม้</div>
+    <div class="admin-tab" onclick="adminTab(this,'review')">🔍 คิวตรวจสอบ<span class="tab-badge" id="reviewTabBadge" style="display:none">0</span></div>
     <div class="admin-tab" onclick="adminTab(this,'users')">👥 จัดการผู้ใช้</div>
     <div class="admin-tab" onclick="adminTab(this,'agencies')">📞 ช่องทางหน่วยงาน</div>
+    <div class="admin-tab" onclick="adminTab(this,'gacha')">🎲 Gacha & Treemons</div>
+    <div class="admin-tab" onclick="adminTab(this,'audit')">📜 Audit Log</div>
     <div class="admin-tab" onclick="adminTab(this,'data')">🔐 การจัดการข้อมูล (PDPA)</div>
+  </div>
+
+  <!-- ── TAB: REVIEW QUEUE (Human-in-the-Loop) ── -->
+  <div class="admin-content" id="admin-review">
+    <div class="ai-warning" style="margin-bottom:16px">
+      🔍 <strong>Human-in-the-Loop Workflow:</strong> รายงานระดับ 🟡 เฝ้าระวัง / 🔴 เสี่ยงสูง / ⚫ วิกฤต จะถูกเผยแพร่บนแผนที่ทันที แต่จะค้างอยู่ในคิวนี้จนกว่าเจ้าหน้าที่จะกด "ยืนยันความถูกต้อง" หรือ "ปฏิเสธ" — ระดับ 🟢 ปลอดภัย เผยแพร่อัตโนมัติไม่ต้องตรวจสอบ
+    </div>
+    <div class="table-card">
+      <div class="table-card-header">
+        <span>🔍 คิวรอตรวจสอบโดยเจ้าหน้าที่</span>
+      </div>
+      <div id="reviewQueueList"></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: GACHA & TREEMONS MANAGEMENT ── -->
+  <div class="admin-content" id="admin-gacha">
+    <div class="card admin-panel" style="margin-bottom:18px">
+      <h4>🎲 Transparent Drop Rate — อัตราการสุ่ม Treemons</h4>
+      <div class="form-hint" style="margin-bottom:10px">ปรับอัตราการสุ่มได้ที่นี่ ตัวเลขรวมกันต้องเท่ากับ 100% และจะแสดงต่อผู้ใช้อย่างโปร่งใสในหน้า Gacha</div>
+      <div class="profile-grid" style="grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end;margin-top:0">
+        <div class="form-group" style="margin-bottom:0"><label>SSR (%)</label><input type="number" id="rateSSR" value="5" min="0" max="100"></div>
+        <div class="form-group" style="margin-bottom:0"><label>SR (%)</label><input type="number" id="rateSR" value="20" min="0" max="100"></div>
+        <div class="form-group" style="margin-bottom:0"><label>R (%)</label><input type="number" id="rateR" value="75" min="0" max="100"></div>
+        <button class="btn btn-primary" onclick="saveGachaRates()">บันทึกอัตรา</button>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header"><span>🐲 รายการ Treemons ทั้งหมด</span></div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Rarity</th><th>ชื่อ</th><th>เชื่อมพันธุ์ไม้</th><th>คำอธิบาย</th></tr></thead>
+          <tbody id="treemonsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: AUDIT LOG (Immutable) ── -->
+  <div class="admin-content" id="admin-audit">
+    <div class="ai-warning" style="margin-bottom:16px">
+      📜 <strong>Immutable Audit Log:</strong> บันทึกทุกกิจกรรมสำคัญพร้อมเวลาและผู้ดำเนินการ ไม่สามารถแก้ไขหรือลบย้อนหลังได้ เพื่อความโปร่งใสด้าน Cybersecurity
+    </div>
+    <div class="table-card">
+      <div class="table-card-header">
+        <span>📜 ประวัติกิจกรรมระบบ (ล่าสุด 200 รายการ)</span>
+        <button class="btn btn-outline btn-sm" onclick="exportAuditLogCSV()">📤 Export Log</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>เวลา</th><th>กิจกรรม</th><th>รายละเอียด</th><th>ผู้ดำเนินการ</th></tr></thead>
+          <tbody id="auditLogTable"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- ── TAB: REPORTS ── -->
@@ -2225,6 +2573,20 @@ const DEFAULT_TREES = [
   { id:9, emoji:'🌴', photo:null, nameTh:'ต้นมะพร้าว', nameSci:'Cocos nucifera', tags:['ไม้ผล','พื้นเมืองใต้'], carbonKg:18, heightM:'15–30 ม.', spread:'ทนน้ำเค็ม', diseases:['ด้วงแรดมะพร้าว','โรคใบไหม้','ราแดง'], desc:'สัญลักษณ์ภาคใต้ ทนดินเค็ม เสี่ยงจากด้วงแรดในเมือง' },
 ];
 
+// ─── TREEMONS: Gacha collectible characters tied to real tree species (transparent drop rates) ───────────────────────────────
+const DEFAULT_GACHA_RATES = { SSR: 5, SR: 20, R: 75 };
+const DEFAULT_TREEMONS = [
+  { id:'tm1', rarity:'SSR', emoji:'🌳✨', name:'ตะเคียนทองผู้พิทักษ์', speciesLink:'ตะเคียนทอง', desc:'Treemon ระดับตำนาน วิวัฒนาการจากต้นตะเคียนทองอายุยืน' },
+  { id:'tm2', rarity:'SSR', emoji:'🌴👑', name:'ราชายางนา', speciesLink:'ยางนา', desc:'Treemon หายากที่สุด สัญลักษณ์ของป่าใหญ่ภาคใต้' },
+  { id:'tm3', rarity:'SR', emoji:'🌸🦋', name:'สะเดาใจดี', speciesLink:'สะเดา', desc:'Treemon SR ไล่แมลงร้ายด้วยกลิ่นหอมพิเศษ' },
+  { id:'tm4', rarity:'SR', emoji:'🌺💫', name:'ชมพูพันธุ์ทิพย์เริงระบำ', speciesLink:'ชมพูพันธุ์ทิพย์', desc:'Treemon SR เริงระบำเมื่อดอกบาน' },
+  { id:'tm5', rarity:'SR', emoji:'🌿🛡️', name:'โพธิ์เกราะแก้ว', speciesLink:'โพธิ์', desc:'Treemon SR รากแข็งแกร่งปกป้องพื้นที่' },
+  { id:'tm6', rarity:'R', emoji:'🍋😊', name:'มะม่วงจอมซน', speciesLink:'มะม่วง', desc:'Treemon ทั่วไป ร่าเริงและให้ร่มเงา' },
+  { id:'tm7', rarity:'R', emoji:'🥭😴', name:'ทุเรียนขี้เซา', speciesLink:'ทุเรียน', desc:'Treemon ทั่วไป ชอบนอนหลับใต้ร่มเงาตัวเอง' },
+  { id:'tm8', rarity:'R', emoji:'🌴🏖️', name:'มะพร้าวริมหาด', speciesLink:'มะพร้าว', desc:'Treemon ทั่วไป สัญลักษณ์ชายฝั่งภาคใต้' },
+  { id:'tm9', rarity:'R', emoji:'🌳💪', name:'มะฮอกกานีแกร่ง', speciesLink:'มะฮอกกานี', desc:'Treemon ทั่วไป เนื้อไม้แข็งแรงทนทาน' },
+];
+
 // NOTE: admin login credentials are no longer stored here in plaintext.
 // Create the admin account once in Supabase Auth (Dashboard → Authentication → Users → Add user)
 // using email kkty@arbor.psu, then this profile record links to it by email.
@@ -2236,6 +2598,10 @@ let USERS_DB = [];
 let TREES_DB = [];
 let MESSAGES = [];
 let AGENCY_LIST = {};
+let AUDIT_LOG = [];
+let REVIEW_THREADS = [];
+let TREEMONS_DB = [];
+let GACHA_RATES = {};
 let currentUser = null;
 let isGuest = false;
 let currentFilter = 'all';
@@ -2258,6 +2624,12 @@ async function initData() {
   MESSAGES = await dbGet('arbor_messages', []);
   const savedAgencies = await dbGet('arbor_agencies', null);
   AGENCY_LIST = savedAgencies || JSON.parse(JSON.stringify(DEFAULT_AGENCIES));
+  AUDIT_LOG = await dbGet('arbor_audit_log', []);
+  REVIEW_THREADS = await dbGet('arbor_review_threads', []);
+  const savedTreemons = await dbGet('arbor_treemons', null);
+  TREEMONS_DB = savedTreemons && savedTreemons.length ? savedTreemons : JSON.parse(JSON.stringify(DEFAULT_TREEMONS));
+  const savedRates = await dbGet('arbor_gacha_rates', null);
+  GACHA_RATES = savedRates || Object.assign({}, DEFAULT_GACHA_RATES);
 
   // Try to restore a previous session (silent auto-login)
   const savedSession = loadSession();
@@ -2290,6 +2662,7 @@ async function initData() {
 
   applyAuthUI();
   renderAll();
+  renderPublicDashboard();
   showBootSkeleton(false);
 }
 
@@ -2319,8 +2692,10 @@ function renderAll() {
 function go(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
+  const pg = document.getElementById('page-' + name);
+  const nv = document.getElementById('nav-' + name);
+  if (pg) pg.classList.add('active');
+  if (nv) nv.classList.add('active');
   window.scrollTo(0, 0);
   if (name === 'encyclopedia') renderTrees();
   if (name === 'map') { initBigMap(); renderMapLegendAndAlerts(); }
@@ -2330,6 +2705,8 @@ function go(name) {
   if (name === 'admin') renderAdminAll();
   if (name === 'messages') renderMessages();
   if (name === 'home') renderHomeStats();
+  if (name === 'gacha') renderGachaPage();
+  if (name === 'pet') renderPetPage();
 }
 
 // ─── LEAFLET MAPS (Hat Yai, Songkhla pilot area) ───────────────────────────────
@@ -2433,6 +2810,42 @@ function renderHomeStats() {
   document.getElementById('statCarbon').textContent = Math.round(REPORTS.reduce((s,r)=>s+(r.carbon_kg||0),0)).toLocaleString();
   document.getElementById('statDone').textContent = REPORTS.filter(r=>r.status==='done').length;
   renderHomeLeaderboard();
+  renderPublicDashboard();
+}
+
+// ─── PUBLIC DASHBOARD (Citizen Science — no login required) ───────────────────────────────
+function renderPublicDashboard() {
+  const statsEl = document.getElementById('pdStats');
+  if (!statsEl) return; // not on auth screen yet
+
+  const crisisN = REPORTS.filter(r=>r.risk_class==='crisis').length;
+  const carbonSum = Math.round(REPORTS.reduce((s,r)=>s+(r.carbon_kg||0),0));
+
+  statsEl.innerHTML = `
+    <div class="pd-stat-card"><div class="pdv">${REPORTS.length}</div><div class="pdl">🌳 ต้นไม้ในระบบ</div></div>
+    <div class="pd-stat-card"><div class="pdv">${crisisN}</div><div class="pdl">⚫ ต้นไม้เสี่ยงวิกฤต</div></div>
+    <div class="pd-stat-card"><div class="pdv">${carbonSum.toLocaleString()}</div><div class="pdl">🌿 กก. CO₂/ปี สะสม</div></div>
+    <div class="pd-stat-card"><div class="pdv">${USERS_DB.filter(u=>u.role==='user').length}</div><div class="pdl">👥 นักสำรวจที่ลงทะเบียน</div></div>
+  `;
+
+  // Growing-tree visual: emoji stage scales with total community reports (gamified, no login needed)
+  const stages = ['🌱','🌿','🪴','🌳','🌳🌳','🌲🌳🌲'];
+  const stageIdx = Math.min(stages.length-1, Math.floor(REPORTS.length / 5));
+  const treeEl = document.getElementById('pdTreeEmoji');
+  if (treeEl) treeEl.textContent = stages[stageIdx];
+  const capEl = document.querySelector('.pd-tree-caption');
+  if (capEl) capEl.textContent = `ต้นไม้ดิจิทัลของชุมชนเติบโตแล้ว ${REPORTS.length} รายงาน — อีก ${(stageIdx+1)*5 - REPORTS.length > 0 ? (stageIdx+1)*5 - REPORTS.length : 5} รายงานจะเติบโตขึ้นอีกขั้น`;
+
+  // Most-found species chips
+  const speciesCount = {};
+  REPORTS.forEach(r => { if (r.species) speciesCount[r.species] = (speciesCount[r.species]||0)+1; });
+  const topSpecies = Object.entries(speciesCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const speciesEl = document.getElementById('pdSpecies');
+  if (speciesEl) {
+    speciesEl.innerHTML = topSpecies.length
+      ? topSpecies.map(([name,count]) => `<span class="pd-species-chip">🌳 ${escapeHtml(name)} ×${count}</span>`).join('')
+      : `<span class="pd-species-chip">ยังไม่มีข้อมูลพันธุ์ไม้ — เป็นคนแรกที่ร่วมสำรวจ!</span>`;
+  }
 }
 
 function rankedUsers() {
@@ -3117,8 +3530,70 @@ function exportCarbonPDF() {
 }
 
 // ─── CONFIRM REPORT → SAVE TO "DATABASE" ───────────────────────────────
+// ─── ANTI-ABUSE: simple perceptual hash (average-hash) for duplicate image detection ───────────────────────────────
+function imageHash(dataUrl) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const size = 8;
+      const canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, size, size);
+      let data;
+      try { data = ctx.getImageData(0,0,size,size).data; } catch { resolve(null); return; }
+      const gray = [];
+      for (let i=0;i<data.length;i+=4) gray.push((data[i]+data[i+1]+data[i+2])/3);
+      const avg = gray.reduce((a,b)=>a+b,0)/gray.length;
+      const hash = gray.map(g => g >= avg ? '1':'0').join('');
+      resolve(hash);
+    };
+    img.onerror = () => resolve(null);
+    img.src = dataUrl;
+  });
+}
+function hashSimilarity(h1, h2) {
+  if (!h1 || !h2 || h1.length !== h2.length) return 0;
+  let same = 0;
+  for (let i=0;i<h1.length;i++) if (h1[i]===h2[i]) same++;
+  return same / h1.length;
+}
+function haversineMeters(lat1, lng1, lat2, lng2) {
+  const R = 6371000, toRad = d => d*Math.PI/180;
+  const dLat = toRad(lat2-lat1), dLng = toRad(lng2-lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  return R * 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// ─── AUDIT LOG (immutable trail of admin/system actions) ───────────────────────────────
+async function logAudit(action, detail) {
+  const entry = {
+    id: 'A' + Date.now() + Math.random().toString(36).slice(2,6),
+    action, detail,
+    actor: currentUser ? currentUser.email : 'system',
+    actorName: currentUser ? currentUser.name : 'System',
+    timestamp: Date.now()
+  };
+  const log = await dbGet('arbor_audit_log', []);
+  log.unshift(entry);
+  if (log.length > 1000) log.length = 1000; // cap growth
+  await dbSet('arbor_audit_log', log);
+  AUDIT_LOG = log;
+  return entry;
+}
+
+// Map risk_class to a 0-100 score for queueing/sorting purposes (keeps the existing 4-tier UI)
+function riskClassToScore(riskClass, confidence) {
+  const base = { safe: 15, watch: 45, high: 70, crisis: 92 };
+  return base[riskClass] !== undefined ? base[riskClass] : 50;
+}
+
+// ─── CONFIRM REPORT → ANTI-ABUSE CHECKS → REVIEW QUEUE → SAVE ───────────────────────────────
 async function confirmReport() {
   if (!currentReport) { showToast('⚠️ ไม่พบผลวิเคราะห์ กรุณาวิเคราะห์ต้นไม้ก่อน'); return; }
+
+  const confirmBtn = document.querySelector('.report-2col .btn-primary');
+  if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = '⏳ กำลังตรวจสอบ...'; }
 
   const gpsTxt = (document.getElementById('gpsText')||{}).textContent || '';
   const m = gpsTxt.match(/([\d.]+)°N,\s*([\d.]+)°E/);
@@ -3132,32 +3607,96 @@ async function confirmReport() {
     locationName = 'อ.หาดใหญ่ จ.สงขลา (ตำแหน่งโดยประมาณ)';
   }
 
+  const photo = imgs.find(i=>i!==null) || null;
+  const idKey = currentUser ? currentUser.email : 'guest';
+
+  // ── Anti-abuse: 3 reports/day (per logged-in user only; guests aren't eligible for points anyway)
+  if (currentUser) {
+    const todayLog = await dbGet('arbor_daily_reports_' + idKey, []);
+    const todayCount = todayLog.filter(t => Date.now()-t < 24*60*60*1000).length;
+    if (todayCount >= 3) {
+      showToast('⚠️ คุณส่งรายงานเพื่อรับแต้มครบ 3 รายงาน/วันแล้ว ระบบจะยังบันทึกผลแต่ไม่ได้รับคะแนนเพิ่ม', 'error');
+    }
+  }
+
+  // ── Anti-abuse: duplicate image check (perceptual hash, compare to recent reports)
+  let imgHash = null;
+  if (photo) {
+    imgHash = await imageHash(photo);
+    if (imgHash) {
+      const dup = REPORTS.slice(0, 100).find(r => r.imgHash && hashSimilarity(r.imgHash, imgHash) > 0.92);
+      if (dup) {
+        if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = '🏅 บันทึกผล รับ 100 คะแนน'; }
+        showToast('⚠️ ภาพนี้คล้ายกับภาพที่เคยส่งมาแล้ว (Image Hash ตรงกัน) ไม่สามารถรับคะแนนซ้ำได้', 'error');
+        return;
+      }
+    }
+  }
+
+  // ── Anti-abuse: duplicate location check (within 15m radius, same day)
+  const nearDup = REPORTS.find(r => r.lat!=null && (Date.now()-r.timestamp < 24*60*60*1000) && haversineMeters(lat,lng,r.lat,r.lng) < 15);
+  if (nearDup) {
+    showToast('ℹ️ พบรายงานใกล้พิกัดนี้แล้วในวันนี้ — บันทึกเป็นการติดตามผลซ้ำ (ไม่นับคะแนนซ้ำ)', 'error');
+  }
+
   const r = currentReport;
+  const riskScore = riskClassToScore(r.risk_class, r.confidence_score);
+
+  // ── Human-in-the-loop queue rule (keeps existing 4-tier risk labels, adds review workflow):
+  //    safe → auto-published immediately
+  //    watch → published + opens a private review chat, queued for staff to confirm
+  //    high / crisis → goes into the admin Urgent Review Queue before being treated as confirmed
+  let reviewStatus = 'auto_published';
+  if (r.risk_class === 'watch') reviewStatus = 'pending_review';
+  if (r.risk_class === 'high' || r.risk_class === 'crisis') reviewStatus = 'urgent_review';
+
   const report = {
     id: 'R' + Date.now(),
     userEmail: currentUser ? currentUser.email : null,
     userName: currentUser ? currentUser.name : 'ผู้เยี่ยมชม (Guest)',
     location: locationName, lat, lng,
-    risk_class: r.risk_class, risk_level: r.risk_level,
+    risk_class: r.risk_class, risk_level: r.risk_level, risk_score: riskScore,
     species: r.species, symptoms: r.symptoms, recommendation: r.recommendation,
     urgent_days: r.urgent_days, monsoon_risk: r.monsoon_risk,
     carbon_kg: r.carbon_kg, confidence_score: r.confidence_score,
-    photo: imgs.find(i=>i!==null) || null,
-    status: 'pending', timestamp: Date.now()
+    photo, imgHash,
+    reviewStatus, verifiedBy: null,
+    status: 'pending', timestamp: Date.now(),
+    duplicateOf: nearDup ? nearDup.id : null
   };
 
   REPORTS.unshift(report);
   await dbSet('arbor_reports', REPORTS);
+  await logAudit('report_created', `${report.risk_level} ที่ ${report.location} (${reviewStatus})`);
 
-  if (currentUser) {
-    currentUser.points = (currentUser.points||0) + 100;
-    currentUser.reports = (currentUser.reports||0) + 1;
-    currentUser.carbonTotal = (currentUser.carbonTotal||0) + (report.carbon_kg||0);
-    if (report.risk_class==='crisis') currentUser.crisisFound = (currentUser.crisisFound||0)+1;
-    await dbSet('arbor_users', USERS_DB);
-    showToast('🏅 บันทึกสำเร็จ! รับ 100 คะแนน (รวม ' + currentUser.points.toLocaleString() + ' แต้ม)');
+  // ── Award points only if not a same-day duplicate and within the 3/day cap
+  let awarded = false;
+  if (currentUser && !nearDup) {
+    const todayLog = await dbGet('arbor_daily_reports_' + idKey, []);
+    const todayCount = todayLog.filter(t => Date.now()-t < 24*60*60*1000).length;
+    if (todayCount < 3) {
+      currentUser.points = (currentUser.points||0) + 100;
+      currentUser.reports = (currentUser.reports||0) + 1;
+      currentUser.carbonTotal = (currentUser.carbonTotal||0) + (report.carbon_kg||0);
+      if (report.risk_class==='crisis') currentUser.crisisFound = (currentUser.crisisFound||0)+1;
+      currentUser.arborPoints = (currentUser.arborPoints||0) + 20; // Arbor Point (gacha currency) — separate from leaderboard points
+      await dbSet('arbor_users', USERS_DB);
+      todayLog.push(Date.now());
+      await dbSet('arbor_daily_reports_' + idKey, todayLog);
+      awarded = true;
+    }
+  }
+
+  if (awarded) {
+    showToast('🏅 บันทึกสำเร็จ! รับ 100 คะแนน + 20 🌰 Arbor Point (รวม ' + currentUser.points.toLocaleString() + ' แต้ม)', 'success');
+  } else if (currentUser) {
+    showToast('✅ บันทึกผลสำเร็จ (ไม่ได้รับคะแนนเพิ่ม — เกินโควต้ารายวันหรือซ้ำตำแหน่งเดิม)');
   } else {
     showToast('🏅 บันทึกผลสำเร็จ! สมัครสมาชิกเพื่อสะสมคะแนนและรับ Badge ในครั้งถัดไป');
+  }
+
+  if (reviewStatus !== 'auto_published') {
+    await ensureReviewChat(report);
   }
 
   if (homeMarkerGroup) addMarkerToGroup(homeMarkerGroup, report);
@@ -3165,8 +3704,25 @@ async function confirmReport() {
 
   renderHomeStats();
   updateNavBadges();
+  if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = '🏅 บันทึกผล รับ 100 คะแนน'; }
   setTimeout(() => go('home'), 1600);
 }
+
+// Auto-create a private review chat thread keyed to the report, separate from the general support chat
+async function ensureReviewChat(report) {
+  const threadId = 'review_' + report.id;
+  const opener = {
+    id: 'M' + Date.now(), threadId, userEmail: report.userEmail || 'guest',
+    fromAdmin: true, senderName: 'ระบบ ARBOR AI',
+    text: `🔍 ห้องตรวจสอบอัตโนมัติสำหรับรายงาน "${report.location}" (${report.risk_level}) — รอเจ้าหน้าที่ยืนยันความถูกต้องก่อนเผยแพร่เป็นทางการ`,
+    read: false, timestamp: Date.now(), reportId: report.id
+  };
+  REVIEW_THREADS.push({ threadId, reportId: report.id, status: 'open' });
+  await dbSet('arbor_review_threads', REVIEW_THREADS);
+  MESSAGES.push(opener);
+  await dbSet('arbor_messages', MESSAGES);
+}
+
 
 // ─── ENCYCLOPEDIA ───────────────────────────────
 function renderTrees() {
@@ -3328,15 +3884,22 @@ function renderAdminAll() {
   renderUserTable();
   renderAgencyManage();
   renderRetention();
+  renderReviewQueue();
+  renderAuditLog();
+  renderGachaAdmin();
 }
 
 function renderAdminMetrics() {
-  document.getElementById('admNew').textContent = REPORTS.filter(r=>r.risk_class==='crisis' && r.status==='pending').length;
-  document.getElementById('admPending').textContent = REPORTS.filter(r=>r.status==='pending').length;
+  document.getElementById('admNew').textContent = REPORTS.filter(r=>r.risk_class==='crisis' && r.reviewStatus!=='confirmed' && r.reviewStatus!=='rejected').length;
+  document.getElementById('admReview').textContent = REPORTS.filter(r=>r.reviewStatus==='pending_review' || r.reviewStatus==='urgent_review').length;
   document.getElementById('admProgress').textContent = REPORTS.filter(r=>r.status==='progress').length;
   document.getElementById('admDone').textContent = REPORTS.filter(r=>r.status==='done').length;
   document.getElementById('admUsers').textContent = USERS_DB.length;
   document.getElementById('admMsgs').textContent = MESSAGES.filter(m=>!m.fromAdmin && !m.read).length;
+
+  const reviewBadge = document.getElementById('reviewTabBadge');
+  const reviewCount = REPORTS.filter(r=>r.reviewStatus==='pending_review' || r.reviewStatus==='urgent_review').length;
+  if (reviewBadge) { reviewBadge.textContent = reviewCount; reviewBadge.style.display = reviewCount ? 'inline-block' : 'none'; }
 
   const carbonSum = REPORTS.reduce((s,r)=>s+(r.carbon_kg||0),0);
   document.getElementById('esgCarbon').textContent = Math.round(carbonSum).toLocaleString();
@@ -3351,6 +3914,108 @@ function renderAdminMetrics() {
   } else {
     tg.textContent = 'ยังไม่มีรายงานระดับวิกฤตที่รอดำเนินการ';
   }
+}
+
+// ─── REVIEW QUEUE (Human-in-the-Loop verification) ───────────────────────────────
+function renderReviewQueue() {
+  const el = document.getElementById('reviewQueueList');
+  if (!el) return;
+  const queue = REPORTS.filter(r => r.reviewStatus==='pending_review' || r.reviewStatus==='urgent_review')
+    .sort((a,b) => (b.risk_score||0) - (a.risk_score||0));
+  if (!queue.length) {
+    el.innerHTML = emptyState('✅','ไม่มีรายการรอตรวจสอบ','รายงานระดับเฝ้าระวังขึ้นไปจะปรากฏที่นี่เพื่อรอการยืนยัน');
+    return;
+  }
+  el.innerHTML = queue.map(r => `
+    <div class="review-item">
+      <div class="review-thumb">${r.photo ? `<img src="${r.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '🌳'}</div>
+      <div class="review-body">
+        <div class="rv-title">📍 ${escapeHtml(r.location)} ${r.reviewStatus==='urgent_review' ? '<span class="risk-pill risk-crisis" style="font-size:10px">URGENT</span>' : ''}</div>
+        <div class="rv-meta">${RISK_LABELS[r.risk_class]||r.risk_class} (คะแนน ${r.risk_score||'-'}/100) · ${escapeHtml(r.species||'-')} · Confidence ${r.confidence_score||'-'}% · โดย ${escapeHtml(r.userName)} · ${timeAgo(r.timestamp)}</div>
+        ${r.duplicateOf ? '<div class="rv-meta" style="color:#C9A227">⚠️ อาจซ้ำกับรายงานใกล้เคียง</div>' : ''}
+      </div>
+      <div class="review-actions">
+        <button class="btn btn-primary btn-sm" onclick="verifyReport('${r.id}', true)">✅ ยืนยัน</button>
+        <button class="btn btn-sm" style="background:#F8D7DA;color:#721C24" onclick="verifyReport('${r.id}', false)">❌ ปฏิเสธ</button>
+        <button class="btn btn-outline btn-sm" onclick="openReviewChat('${r.id}')">💬 แชท</button>
+      </div>
+    </div>`).join('');
+}
+
+async function verifyReport(reportId, approve) {
+  const r = REPORTS.find(x=>x.id===reportId);
+  if (!r) return;
+  r.reviewStatus = approve ? 'confirmed' : 'rejected';
+  r.verifiedBy = currentUser ? currentUser.email : 'system';
+  if (!approve) r.status = 'done'; // rejected reports close out, no further action needed
+  await dbSet('arbor_reports', REPORTS);
+  await logAudit(approve ? 'report_verified' : 'report_rejected', `${r.location} — ${r.risk_level} (โดย ${currentUser?currentUser.name:'-'})`);
+  renderReviewQueue();
+  renderAdminMetrics();
+  renderAdminReports();
+  showToast(approve ? '✅ ยืนยันรายงานเรียบร้อย — เผยแพร่เป็นทางการแล้ว' : '❌ ปฏิเสธรายงานแล้ว (อาจเป็นข้อมูลผิดพลาด)', approve?'success':'error');
+}
+
+function openReviewChat(reportId) {
+  go('messages');
+  const r = REPORTS.find(x=>x.id===reportId);
+  if (r && r.userEmail) { selectedMsgUserEmail = r.userEmail; renderMessages(); }
+}
+
+// ─── AUDIT LOG ───────────────────────────────
+function renderAuditLog() {
+  const tbody = document.getElementById('auditLogTable');
+  if (!tbody) return;
+  if (!AUDIT_LOG.length) {
+    tbody.innerHTML = `<tr><td colspan="4" style="padding:0">${emptyState('📜','ยังไม่มีบันทึกกิจกรรม','การกระทำสำคัญในระบบจะถูกบันทึกที่นี่อัตโนมัติ')}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = AUDIT_LOG.slice(0,200).map(a => `
+    <tr>
+      <td style="white-space:nowrap;font-size:11.5px">${new Date(a.timestamp).toLocaleString('th-TH',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}</td>
+      <td><span class="role-chip role-staff">${escapeHtml(a.action)}</span></td>
+      <td style="font-size:12px">${escapeHtml(a.detail||'-')}</td>
+      <td style="font-size:12px">${escapeHtml(a.actorName||a.actor)}</td>
+    </tr>`).join('');
+}
+
+function exportAuditLogCSV() {
+  if (!AUDIT_LOG.length) { showToast('⚠️ ยังไม่มี Audit Log ให้ Export'); return; }
+  const headers = ['Timestamp','Action','Detail','Actor'];
+  const rows = AUDIT_LOG.map(a => [new Date(a.timestamp).toISOString(), a.action, a.detail||'-', a.actor]);
+  const csv = [headers, ...rows].map(row => row.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], { type:'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'arbor-audit-log-' + Date.now() + '.csv';
+  a.click();
+  showToast('📤 Export Audit Log สำเร็จ!', 'success');
+}
+
+// ─── GACHA / TREEMONS ADMIN ───────────────────────────────
+function renderGachaAdmin() {
+  const ssrEl = document.getElementById('rateSSR'), srEl = document.getElementById('rateSR'), rEl = document.getElementById('rateR');
+  if (ssrEl) { ssrEl.value = GACHA_RATES.SSR; srEl.value = GACHA_RATES.SR; rEl.value = GACHA_RATES.R; }
+  const tbody = document.getElementById('treemonsTable');
+  if (!tbody) return;
+  tbody.innerHTML = TREEMONS_DB.map(t => `
+    <tr>
+      <td><span class="role-chip ${t.rarity==='SSR'?'role-admin':t.rarity==='SR'?'role-staff':'role-user'}">${t.rarity}</span></td>
+      <td>${t.emoji} ${escapeHtml(t.name)}</td>
+      <td>${escapeHtml(t.speciesLink)}</td>
+      <td style="font-size:12px;color:var(--text-muted)">${escapeHtml(t.desc)}</td>
+    </tr>`).join('');
+}
+
+async function saveGachaRates() {
+  const ssr = parseFloat(document.getElementById('rateSSR').value)||0;
+  const sr = parseFloat(document.getElementById('rateSR').value)||0;
+  const r = parseFloat(document.getElementById('rateR').value)||0;
+  if (Math.round(ssr+sr+r) !== 100) { showToast('⚠️ อัตราการสุ่มรวมกันต้องเท่ากับ 100% (ตอนนี้รวม ' + (ssr+sr+r) + '%)'); return; }
+  GACHA_RATES = { SSR:ssr, SR:sr, R:r };
+  await dbSet('arbor_gacha_rates', GACHA_RATES);
+  await logAudit('gacha_rates_updated', `SSR ${ssr}% / SR ${sr}% / R ${r}%`);
+  showToast('✅ บันทึกอัตราการสุ่มสำเร็จ — โปร่งใสต่อผู้ใช้ทันที', 'success');
 }
 
 function renderAdminReports() {
@@ -3526,6 +4191,9 @@ async function clearData(type) {
   const labels = { reports:'รายงานต้นไม้ทั้งหมด', messages:'ข้อความทั้งหมด', users:'บัญชีผู้ใช้ทั้งหมด (เก็บแอดมิน/สตาฟ)', trees:'ฐานข้อมูลพันธุ์ไม้ (กลับเป็นค่าเริ่มต้น)', all:'ข้อมูลทั้งระบบ (Full Reset)' };
   if (currentUser && currentUser.role !== 'admin') { showToast('⛔ เฉพาะแอดมินเต็มสิทธิ์เท่านั้นที่ลบข้อมูลส่วนนี้ได้'); return; }
   if (!confirm(`ยืนยันลบ "${labels[type]}" ?\nการดำเนินการนี้ไม่สามารถย้อนกลับได้`)) return;
+
+  // Log BEFORE deleting so the audit trail itself is never lost even if something fails mid-way
+  await logAudit('danger_zone_clear', `ลบ: ${labels[type]} (โดย ${currentUser?currentUser.name:'-'})`);
 
   if (type==='reports' || type==='all') { REPORTS = []; await dbSet('arbor_reports', REPORTS); }
   if (type==='messages' || type==='all') { MESSAGES = []; await dbSet('arbor_messages', MESSAGES); }
@@ -3754,13 +4422,19 @@ function applyAuthUI() {
   if (!document.getElementById('sbName')) return;
   const adminNav = document.getElementById('nav-admin');
   const msgNav = document.getElementById('nav-messages');
+  const gachaNav = document.getElementById('nav-gacha');
+  const petNav = document.getElementById('nav-pet');
 
   if (currentUser) {
     document.getElementById('sbName').textContent = currentUser.name;
-    document.getElementById('sbRole').textContent = currentUser.role==='admin'?'🛠️ Admin':currentUser.role==='staff'?'🔧 Staff':'🌱 Member';
+    const ap = currentUser.arborPoints||0;
+    const roleLabel = currentUser.role==='admin'?'🛠️ Admin':currentUser.role==='staff'?'🔧 Staff':'🌱 Member';
+    document.getElementById('sbRole').textContent = roleLabel + (currentUser.role==='user' ? ` · 🌰 ${ap} แต้ม` : '');
     document.getElementById('sbAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
     adminNav.style.display = (currentUser.role==='admin'||currentUser.role==='staff') ? 'flex' : 'none';
     msgNav.style.display = 'flex';
+    if (gachaNav) gachaNav.style.display = 'flex';
+    if (petNav) petNav.style.display = 'flex';
     document.getElementById('profActionBtn').style.display = 'none';
   } else {
     document.getElementById('sbName').textContent = isGuest ? 'ผู้เยี่ยมชม' : 'ยังไม่ได้เข้าสู่ระบบ';
@@ -3768,6 +4442,8 @@ function applyAuthUI() {
     document.getElementById('sbAvatar').textContent = 'G';
     adminNav.style.display = 'none';
     msgNav.style.display = isGuest ? 'flex' : 'none';
+    if (gachaNav) gachaNav.style.display = 'none';
+    if (petNav) petNav.style.display = 'none';
     const profBtn = document.getElementById('profActionBtn');
     if (profBtn) profBtn.style.display = 'inline-flex';
   }
@@ -3909,6 +4585,260 @@ function updateConnPill() {
 }
 updateConnPill();
 
+// ═══════════════ GACHA SYSTEM ═══════════════
+const GACHA_COST_SINGLE = 50;
+const GACHA_COST_TEN = 450;
+
+function gachaRoll() {
+  const roll = Math.random() * 100;
+  const rates = GACHA_RATES || DEFAULT_GACHA_RATES;
+  if (roll < rates.SSR) return 'SSR';
+  if (roll < rates.SSR + rates.SR) return 'SR';
+  return 'R';
+}
+
+function pickTreemon(rarity) {
+  const pool = TREEMONS_DB.filter(t => t.rarity === rarity);
+  if (!pool.length) return TREEMONS_DB[TREEMONS_DB.length-1];
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+async function doPull(count) {
+  if (!currentUser) { showToast('⚠️ กรุณาเข้าสู่ระบบก่อนสุ่ม Gacha'); return; }
+  const cost = count === 1 ? GACHA_COST_SINGLE : GACHA_COST_TEN;
+  const ap = currentUser.arborPoints || 0;
+  if (ap < cost) { showToast(`⚠️ Arbor Point ไม่พอ ต้องการ ${cost} แต้ม แต่คุณมี ${ap} แต้ม — สำรวจต้นไม้เพิ่มเพื่อสะสมแต้ม!`, 'error'); return; }
+
+  // Deduct points
+  currentUser.arborPoints = ap - cost;
+  if (!currentUser.treemons) currentUser.treemons = [];
+  if (!currentUser.pet) currentUser.pet = null;
+
+  const results = [];
+  // Pity: guarantee at least 1 SR+ in x10 pull
+  let hasSRplus = false;
+  for (let i=0; i<count; i++) {
+    let rarity = gachaRoll();
+    if (count === 10 && i === 9 && !hasSRplus) rarity = Math.random() < 0.8 ? 'SR' : 'SSR'; // pity mechanism
+    if (rarity === 'SR' || rarity === 'SSR') hasSRplus = true;
+    const tm = pickTreemon(rarity);
+    results.push({ ...tm });
+    // Mark as owned
+    if (!currentUser.treemons.includes(tm.id)) {
+      currentUser.treemons.push(tm.id);
+    }
+    // Auto-set first pulled treemon as pet if none yet
+    if (!currentUser.pet) {
+      currentUser.pet = {
+        treemonId: tm.id,
+        hunger: 70, happy: 70, energy: 100,
+        level: 1, exp: 0, lastFed: Date.now()
+      };
+    }
+  }
+
+  await dbSet('arbor_users', USERS_DB);
+  await logAudit('gacha_pull', `${count}x pull, results: ${results.map(r=>r.rarity+':'+r.name).join(', ')}`);
+
+  showGachaResult(results);
+  renderGachaPage();
+  document.getElementById('gachaPointDisplay').textContent = (currentUser.arborPoints||0).toLocaleString();
+}
+
+function showGachaResult(results) {
+  const orb = document.getElementById('gachaOrb');
+  const sparkle = document.getElementById('gachaSparkle');
+  if (orb) orb.style.transform = 'scale(1.3) rotate(15deg)';
+  if (sparkle) { sparkle.style.display='flex'; setTimeout(()=>{ sparkle.style.display='none'; if(orb)orb.style.transform=''; }, 1200); }
+
+  const grCards = document.getElementById('grCards');
+  const grTitle = document.getElementById('grTitle');
+  const hasSSR = results.some(r=>r.rarity==='SSR');
+  if (grTitle) grTitle.textContent = hasSSR ? '🌟 SSR ได้แล้ว! ยินดีด้วย!' : '✨ ผลการสุ่ม Treemon';
+  if (grCards) {
+    grCards.innerHTML = results.map((tm, i) => `
+      <div class="gr-card r${tm.rarity}" style="animation-delay:${i*0.08}s">
+        <div class="gc-emoji">${tm.emoji}</div>
+        <div class="gc-name">${escapeHtml(tm.name)}</div>
+        <div class="gc-rarity">${tm.rarity === 'SSR'?'⭐⭐⭐':tm.rarity==='SR'?'⭐⭐':'⭐'} ${tm.rarity}</div>
+      </div>`).join('');
+  }
+  const overlay = document.getElementById('gachaResult');
+  if (overlay) overlay.style.display = 'flex';
+}
+
+function closeGachaResult() {
+  const overlay = document.getElementById('gachaResult');
+  if (overlay) overlay.style.display = 'none';
+}
+
+function renderGachaPage() {
+  if (!document.getElementById('gachaPointDisplay')) return;
+  const ap = currentUser ? (currentUser.arborPoints||0) : 0;
+  document.getElementById('gachaPointDisplay').textContent = ap.toLocaleString();
+  const rates = GACHA_RATES || DEFAULT_GACHA_RATES;
+  document.getElementById('dispSSR').textContent = rates.SSR;
+  document.getElementById('dispSR').textContent = rates.SR;
+  document.getElementById('dispR').textContent = rates.R;
+
+  const owned = currentUser ? (currentUser.treemons||[]) : [];
+  const grid = document.getElementById('treemonsGrid');
+  if (!grid) return;
+  grid.innerHTML = TREEMONS_DB.map(tm => {
+    const isOwned = owned.includes(tm.id);
+    const isNew = owned.indexOf(tm.id) === owned.length-1 && owned.length > 0; // last pulled = "new"
+    return `<div class="treemon-card ${isOwned?'owned':'not-owned'}">
+      ${isNew && isOwned ? '<div class="tc-new">NEW</div>' : ''}
+      <div class="tc-emoji">${tm.emoji}</div>
+      <div class="tc-name">${escapeHtml(tm.name)}</div>
+      <div class="tc-rarity">${tm.rarity} · ${escapeHtml(tm.speciesLink)}</div>
+    </div>`;
+  }).join('');
+
+  const collectedEl = document.getElementById('gachaCollectedCount');
+  if (collectedEl) collectedEl.textContent = `${owned.length} / ${TREEMONS_DB.length} ตัว`;
+}
+
+// ═══════════════ PET / TAMAGOTCHI ═══════════════
+const PET_EVO = [
+  { minLv:1,  emoji:'🥚', label:'ไข่ (Lv.1)', note:'เพิ่งฟัก' },
+  { minLv:3,  emoji:'🌱', label:'ต้นกล้า (Lv.3)', note:'เริ่มเติบโต' },
+  { minLv:6,  emoji:'🌿', label:'ต้นเล็ก (Lv.6)', note:'กำลังแตกใบ' },
+  { minLv:10, emoji:'🌳', label:'ต้นใหญ่ (Lv.10)', note:'วิวัฒนาการสมบูรณ์' },
+];
+
+function getPetEmoji(pet, treemon) {
+  if (!pet) return '❓';
+  const stage = [...PET_EVO].reverse().find(s => pet.level >= s.minLv);
+  if (pet.level >= 10 && treemon) return treemon.emoji; // fully evolved: show actual treemon
+  return stage ? stage.emoji : '🥚';
+}
+
+function getPetMood(pet) {
+  if (!pet) return 'เลือก Treemon ของคุณก่อน';
+  const avg = ((pet.hunger||0) + (pet.happy||0) + (pet.energy||0)) / 3;
+  if (avg >= 80) return '😄 มีความสุขมาก!';
+  if (avg >= 55) return '🙂 โอเคนะ';
+  if (avg >= 30) return '😐 หิวนิดหน่อย';
+  return '😔 ต้องการความใส่ใจ!';
+}
+
+function decayPetStats(pet) {
+  if (!pet) return pet;
+  const hours = (Date.now() - (pet.lastFed||Date.now())) / 3600000;
+  const decay = Math.min(hours * 5, 40); // lose up to 40 stat per 8 hrs since last interaction
+  pet.hunger = Math.max(0, (pet.hunger||70) - decay);
+  pet.happy  = Math.max(0, (pet.happy||70)  - decay * 0.6);
+  pet.energy = Math.max(0, (pet.energy||100) - decay * 0.4);
+  return pet;
+}
+
+function renderPetPage() {
+  if (!document.getElementById('petScene')) return;
+  const user = currentUser;
+  const noPetEl = document.getElementById('petNoPet');
+  const statsEl = document.getElementById('petStats');
+  const actionsEl = document.getElementById('petActions');
+  const evoEl = document.getElementById('petEvoStages');
+
+  if (!user || !user.pet) {
+    if (noPetEl) noPetEl.style.display = 'block';
+    if (statsEl) statsEl.style.display = 'none';
+    if (actionsEl) actionsEl.style.display = 'none';
+    return;
+  }
+  if (noPetEl) noPetEl.style.display = 'none';
+  if (statsEl) statsEl.style.display = 'block';
+  if (actionsEl) actionsEl.style.display = 'flex';
+
+  const pet = decayPetStats(user.pet);
+  const treemon = TREEMONS_DB.find(t => t.id === pet.treemonId);
+
+  document.getElementById('petEmoji').textContent = getPetEmoji(pet, treemon);
+  document.getElementById('petMood').textContent = getPetMood(pet);
+  document.getElementById('petName').textContent = treemon ? treemon.name : 'Treemon ของฉัน';
+  const rarEl = document.getElementById('petRarity');
+  if (rarEl && treemon) { rarEl.textContent = treemon.rarity; rarEl.style.display='inline-block'; }
+
+  const setBar = (id, txtId, val) => {
+    const el = document.getElementById(id); const tx = document.getElementById(txtId);
+    if (el) el.style.width = Math.max(0,Math.min(100,val)) + '%';
+    if (tx) tx.textContent = Math.round(val) + '%';
+  };
+  setBar('barHunger','txtHunger', pet.hunger);
+  setBar('barHappy','txtHappy', pet.happy);
+  setBar('barEnergy','txtEnergy', pet.energy);
+
+  const expToNext = pet.level * 100;
+  document.getElementById('petLevelLabel').textContent = `Lv. ${pet.level}`;
+  document.getElementById('petExpLabel').textContent = `${pet.exp} / ${expToNext} EXP`;
+  const expBar = document.getElementById('barExp');
+  if (expBar) expBar.style.width = Math.min(100, pet.exp/expToNext*100) + '%';
+
+  if (evoEl) {
+    evoEl.innerHTML = PET_EVO.map((stage,i) => `
+      <div class="pet-evo-stage ${pet.level >= stage.minLv ? 'active' : ''}">
+        <div class="es-emoji">${pet.level >= stage.minLv && i===PET_EVO.length-1 && treemon ? treemon.emoji : stage.emoji}</div>
+        <div style="font-size:10.5px;font-weight:700;color:var(--bark-dark)">${stage.label}</div>
+        <div style="font-size:10px;color:var(--text-muted)">${stage.note}</div>
+      </div>${i<PET_EVO.length-1?'<div class="pet-evo-arrow">→</div>':''}`).join('');
+  }
+}
+
+const ITEM_STATS = {
+  leaf:   { hunger:+25, happy:+10, energy:+5,  cost:10, name:'ใบไม้สด',    exp:15 },
+  fruit:  { hunger:+50, happy:+25, energy:+15, cost:30, name:'ผลไม้พิเศษ', exp:40 },
+  water:  { hunger:+10, happy:+20, energy:+20, cost:20, name:'น้ำเพชร',    exp:20 },
+  sun:    { hunger:+20, happy:+40, energy:+35, cost:50, name:'แสงอาทิตย์', exp:55 },
+};
+
+async function petFeed(itemKey='leaf') {
+  if (!currentUser || !currentUser.pet) { showToast('⚠️ ยังไม่มี Treemon — ไปสุ่ม Gacha ก่อน'); return; }
+  const item = ITEM_STATS[itemKey] || ITEM_STATS.leaf;
+  const ap = currentUser.arborPoints||0;
+  if (ap < item.cost) { showToast(`⚠️ Arbor Point ไม่พอ ต้องการ ${item.cost} แต้ม (มี ${ap} แต้ม)`, 'error'); return; }
+  currentUser.arborPoints = ap - item.cost;
+  const pet = currentUser.pet;
+  pet.hunger  = Math.min(100, (pet.hunger||0)  + item.hunger);
+  pet.happy   = Math.min(100, (pet.happy||0)   + item.happy);
+  pet.energy  = Math.min(100, (pet.energy||0)  + item.energy);
+  pet.lastFed = Date.now();
+  pet.exp = (pet.exp||0) + item.exp;
+  const expToNext = pet.level * 100;
+  if (pet.exp >= expToNext) { pet.exp -= expToNext; pet.level = (pet.level||1)+1; showToast(`🎉 Treemon ของคุณ Level Up! ตอนนี้ Lv.${pet.level}`, 'success'); }
+  else { showToast(`🍃 ให้ ${item.name} แล้ว — Treemon มีความสุขขึ้น!`, 'success'); }
+  await dbSet('arbor_users', USERS_DB);
+  renderPetPage();
+  applyAuthUI();
+}
+
+async function petPlay() {
+  if (!currentUser || !currentUser.pet) { showToast('⚠️ ยังไม่มี Treemon'); return; }
+  const cost = 5;
+  if ((currentUser.arborPoints||0) < cost) { showToast('⚠️ Arbor Point ไม่พอ', 'error'); return; }
+  currentUser.arborPoints -= cost;
+  const pet = currentUser.pet;
+  pet.happy  = Math.min(100, (pet.happy||0)  + 15);
+  pet.energy = Math.max(0,   (pet.energy||0) - 10);
+  pet.exp    = (pet.exp||0) + 10;
+  const expToNext = pet.level * 100;
+  if (pet.exp >= expToNext) { pet.exp -= expToNext; pet.level = (pet.level||1)+1; showToast(`🎉 Level Up! Lv.${pet.level}`, 'success'); }
+  else showToast('🎮 เล่นด้วยกันแล้ว — Treemon มีความสุข!', 'success');
+  await dbSet('arbor_users', USERS_DB);
+  renderPetPage();
+  applyAuthUI();
+}
+
+async function petRest() {
+  if (!currentUser || !currentUser.pet) { showToast('⚠️ ยังไม่มี Treemon'); return; }
+  const pet = currentUser.pet;
+  pet.energy = Math.min(100, (pet.energy||0) + 30);
+  pet.lastFed = Date.now();
+  showToast('😴 Treemon พักผ่อนแล้ว — พลังงานเพิ่มขึ้น');
+  await dbSet('arbor_users', USERS_DB);
+  renderPetPage();
+}
+
 // ═══════════════ PWA SETUP (installable, works offline for cached pages) ═══════════════
 function setupPWA() {
   // 1) Generate a simple icon as SVG data URI (no external image file needed)
@@ -3992,4 +4922,3 @@ initData();
 </script>
 </body>
 </html>
-
